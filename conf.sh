@@ -70,12 +70,9 @@ fi
 if [[ -n $conf_state ]]; then
     echo ""
     echo "Splunk file locations: $arg1.conf"
-    echo "find $path -name "*.conf" | grep -P \"$arg1.conf\""
+    echo "find /opt/splunk/etc -name $arg1.conf -exec ls -Shl {} + | sort -k 9"
     echo ""
-    files=$(find $path -name "*.conf" | grep -P $arg1.conf)
-    for file in ${files[@]}; do
-        ls -la $file
-    done
+    find /opt/splunk/etc -name $arg1.conf -exec ls -Shl {} + | sort -k 9
     echo ""
 fi
 
