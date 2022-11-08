@@ -175,14 +175,15 @@ if [[ -n $stanza_state ]] && [[ -z $arg3 ]]; then
     echo ""
     sudo -u splunk -i splunk show config $arg1 | awk "/\[$arg2.*\]/,/^$/"
     key2=$(sudo -u splunk -i splunk show config $arg1 | awk "/\[$arg2.*\]/,/^$/" | grep -P "(sslPassword\s*?=\s*?|pass4SymmKey\s*?=\s*?)")
-    if [[ -n key1 ]] || [[ -n key2 ]]; then
+
+    if [[ -n $key1 ]] || [[ -n $key2 ]]; then
         echo "Decrypt Key(s):"
         echo "Note: Must be splunk user to see correct decrypted value."
         echo "su splunk"
         echo "splunk show-decrypted --value 'key value'"
-
+        echo ""
     fi
-    echo ""
+
     filter_message
 
 elif [[ -n $stanza_state ]] && [[ -n $arg3 ]]; then
@@ -201,7 +202,7 @@ elif [[ -n $stanza_state ]] && [[ -n $arg3 ]]; then
     echo ""
     echo $key1
     echo $key2
-    if [[ -n key1 ]] || [[ -n key2 ]]; then
+    if [[ -n $key1 ]] || [[ -n $key2 ]]; then
         echo ""
         echo "Decrypt Key(s):"
         echo "Note: Must be splunk user to see correct decrypted value."
